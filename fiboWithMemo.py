@@ -1,16 +1,16 @@
 
 def fibo(n, memo):
-    print(n)
-    if n <= 0:
-        return 0
-    elif n == 1:
-        return 1
+    if n == 1:
+        memo[1] = 1
+    elif n == 2:
+        memo[2] = 1
     else:
         if memo[n]:
             return memo[n]
         else:
             memo[n] = fibo(n-1, memo)+fibo(n-2, memo)
-        return memo[n]
+    return memo[n]
 
-m = []
-print(fibo(6,m))
+n=6
+memo = [None for _ in range(n+1)]
+print(fibo(n,memo))
