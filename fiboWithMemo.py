@@ -1,5 +1,4 @@
-
-def fibo(n, memo):
+def fibo_memo(n, memo):
     if n == 1:
         memo[1] = 1
     elif n == 2:
@@ -8,9 +7,25 @@ def fibo(n, memo):
         if memo[n]:
             return memo[n]
         else:
-            memo[n] = fibo(n-1, memo)+fibo(n-2, memo)
+            memo[n] = fibo_memo(n - 1, memo) + fibo_memo(n - 2, memo)
     return memo[n]
 
-n=6
-memo = [None for _ in range(n+1)]
-print(fibo(n,memo))
+
+def fibo_bottom_up(n):
+    if n == 1 or n == 2:
+        return 1
+    memo = [None] * (n + 1)
+    memo[1] = 1
+    memo[2] = 1
+    for i in range(3, n + 1):
+        memo[i] = memo[i - 1] + memo[i - 2]
+    return memo[n]
+
+
+def fibo(n):
+    memo = [None] * (n + 1)
+    return fibo_memo(n, memo)
+
+
+print(fibo(100))
+print(fibo_bottom_up(1000))
