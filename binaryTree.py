@@ -1,5 +1,6 @@
 class Node:
     def __init__(self, value):
+        #powinno tu byc id, ale mi sie nie chce, więc zakładam, że value jest unikalne
         self.right = None
         self.left = None
         self.value = value
@@ -54,9 +55,6 @@ def fromList(list):
 
 # print(toList(fromList(list)))
 
-def depthSearch(node,end):
-    pass
-#TODO TOTALNIE
 
 def breodthFirstSearch(node,end):
     q = []
@@ -73,7 +71,36 @@ def breodthFirstSearch(node,end):
             q.pop(i)
     return False
 
-print(breodthFirstSearch(node6,node7))
+m = []
+
+def depthSearch(node,target,memo):
+    if node == target:
+        memo.append(node.value)
+        return True, memo[:]
+    else:
+        if node.left:
+            to_return, memo = depthSearch(node.left,target,memo)
+            if to_return:
+                memo.append(node.value)
+                return True, memo[:]
+        if node.right:
+            to_return, memo = depthSearch(node.right,target,memo)
+            if to_return:
+                memo.append(node.value)
+                return True, memo[:]
+    return False, memo
+
+
+def lowestCommonAncestor(root, a, b):
+    moves_a = []
+    moves_b = []
+    _, moves_a = depthSearch(root,a, moves_a)
+    _, moves_b = depthSearch(root,b, moves_b)
+    dif = abs(len(moves_a) - len(moves_b))
+    return moves_a[-(dif+1)]
+print(lowestCommonAncestor(node1, node7, node4))
+
+
 
 
 
