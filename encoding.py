@@ -1,10 +1,8 @@
 
-
-
 def encode(code):
     memo = {}
     if not code[0]:
-        return 0
+        return 1
     code += '.'
     if code[1] != '.':
         code = code[:-1]
