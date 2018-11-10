@@ -1,6 +1,7 @@
-# [r,d1,d2,d11,d12,d21,d22] 2*index, 2*index+1
-# 4 ceil(index-2)/2 - rodzic index*2+1 index*+2
 import math
+
+#MINIMUM HEAP
+
 
 heap = []
 
@@ -22,36 +23,37 @@ def getLeft(index):
 def getRight(index):
     return index * 2 + 2
 
-
-def checkHeap(heap):
-    if 1 < len(heap):
-        left = heap[1]
-    else:
-        return heap
-    if 2 < len(heap):
-        right = heap[2]
-    else:
-        if heap[0] > left:
-            swap(heap,0,1)
-        return heap
-    if heap[0] > left or heap[0] > right:
-        if right >= left:
-            swap(heap, 0, 1)
-        else:
-            swap(heap, 0, 2)
-    return heap
+def bubbleUp(heap, index):
+    prev = getParent(index)
+    if prev >= 0 and heap[prev] > heap[index]:
+        swap(heap, index, prev)
+        return bubbleUp(heap, prev)
+    return heap[:]
 
 
-def heapInsert(heap, node):
-    heap.append(node)
-    if node < heap[0]:
-        swap(heap, 0, -1)
-    checkHeap(heap)
+def bubbleDown(heap,index):
+    #TODO
+    l = len(heap) - 1
+    
 
-heapInsert(heap,4)
-heapInsert(heap,5)
-heapInsert(heap,2)
+def insert(heap, n):
+    heap.append(n)
+    return bubbleUp(heap,len(heap)-1)
+
+def getMin(heap):
+    min = heap[0]
+    heap[0] = heap[-1]
+    heap.pop()
+    heap = bubbleDown(heap,0)
+    print(heap)
+    return min
 
 
-
-print(heap)
+print(insert(heap,2))
+print(insert(heap,7))
+print(insert(heap,9))
+print(insert(heap,1))
+print(insert(heap,3))
+print(insert(heap,17))
+print(insert(heap,5))
+print(insert(heap,0))
