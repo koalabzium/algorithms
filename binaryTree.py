@@ -98,7 +98,27 @@ def lowestCommonAncestor(root, a, b):
     _, moves_b = depthSearch(root,b, moves_b)
     dif = abs(len(moves_a) - len(moves_b))
     return moves_a[-(dif+1)]
+
 print(lowestCommonAncestor(node1, node7, node4))
+
+
+def in_order(node):
+    if node.left:
+        in_order(node.left)
+    print(node.value)
+    if node.right:
+        in_order(node.right)
+
+def pre_order(node):
+    print(node.value)
+    if node.left:
+        pre_order(node.left)
+    if node.right:
+        pre_order(node.right)
+
+
+
+pre_order(node1)
 
 
 
